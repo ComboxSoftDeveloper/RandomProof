@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>RandomProof.Benchmarks.NextBench-20260914-232010</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.15.8, Windows 10 (10.0.20348.5386)
+Intel Xeon Silver 4314 CPU 2.40GHz, 2 CPU, 64 logical and 32 physical cores
+.NET SDK 11.0.100-preview.5.26302.115
+  [Host] : .NET 10.0.1 (10.0.1, 10.0.125.57005), X64 RyuJIT x86-64-v4
+  net10  : .NET 10.0.1 (10.0.1, 10.0.125.57005), X64 RyuJIT x86-64-v4
+  net8   : .NET 8.0.16 (8.0.16, 8.0.1625.21506), X64 RyuJIT x86-64-v4
+  net9   : .NET 9.0.5 (9.0.5, 9.0.525.21509), X64 RyuJIT x86-64-v4
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>Job</th><th>Toolchain</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>Ratio</th><th>RatioSD</th><th>Code Size</th><th>Allocated</th><th>Alloc Ratio</th>
+</tr>
+</thead><tbody><tr><td>WithoutSeed</td><td>net10</td><td>net10</td><td>3.240 ns</td><td>0.0267 ns</td><td>0.0250 ns</td><td>3.234 ns</td><td>1.00</td><td>0.01</td><td>170 B</td><td>-</td><td>NA</td>
+</tr><tr><td>WithSeed</td><td>net10</td><td>net10</td><td>3.308 ns</td><td>0.0286 ns</td><td>0.0268 ns</td><td>3.304 ns</td><td>1.02</td><td>0.01</td><td>215 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Shared</td><td>net10</td><td>net10</td><td>3.993 ns</td><td>0.0316 ns</td><td>0.0296 ns</td><td>3.984 ns</td><td>1.23</td><td>0.01</td><td>395 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Crypto</td><td>net10</td><td>net10</td><td>70.485 ns</td><td>0.6408 ns</td><td>0.5994 ns</td><td>70.232 ns</td><td>21.76</td><td>0.24</td><td>239 B</td><td>-</td><td>NA</td>
+</tr><tr><td>WithoutSeed</td><td>net8</td><td>net8</td><td>3.214 ns</td><td>0.0406 ns</td><td>0.0317 ns</td><td>3.213 ns</td><td>0.99</td><td>0.01</td><td>170 B</td><td>-</td><td>NA</td>
+</tr><tr><td>WithSeed</td><td>net8</td><td>net8</td><td>3.270 ns</td><td>0.0157 ns</td><td>0.0131 ns</td><td>3.271 ns</td><td>1.01</td><td>0.01</td><td>215 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Shared</td><td>net8</td><td>net8</td><td>4.078 ns</td><td>0.0314 ns</td><td>0.0294 ns</td><td>4.083 ns</td><td>1.26</td><td>0.01</td><td>272 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Crypto</td><td>net8</td><td>net8</td><td>73.361 ns</td><td>0.5906 ns</td><td>0.4932 ns</td><td>73.494 ns</td><td>22.64</td><td>0.22</td><td>395 B</td><td>-</td><td>NA</td>
+</tr><tr><td>WithoutSeed</td><td>net9</td><td>net9</td><td>3.179 ns</td><td>0.0354 ns</td><td>0.0331 ns</td><td>3.174 ns</td><td>0.98</td><td>0.01</td><td>170 B</td><td>-</td><td>NA</td>
+</tr><tr><td>WithSeed</td><td>net9</td><td>net9</td><td>3.292 ns</td><td>0.0601 ns</td><td>0.0502 ns</td><td>3.280 ns</td><td>1.02</td><td>0.02</td><td>215 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Shared</td><td>net9</td><td>net9</td><td>3.674 ns</td><td>0.1270 ns</td><td>0.3744 ns</td><td>3.533 ns</td><td>1.13</td><td>0.12</td><td>266 B</td><td>-</td><td>NA</td>
+</tr><tr><td>Crypto</td><td>net9</td><td>net9</td><td>77.286 ns</td><td>1.0821 ns</td><td>1.0122 ns</td><td>76.888 ns</td><td>23.86</td><td>0.35</td><td>371 B</td><td>-</td><td>NA</td>
+</tr></tbody></table>
+</body>
+</html>

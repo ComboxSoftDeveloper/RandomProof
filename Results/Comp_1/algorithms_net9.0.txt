@@ -1,0 +1,16 @@
+Рантайм: 9.0.20
+
+  как создан                     реализация
+
+  new Random()                    XoshiroImpl
+  new Random(42)                  Net5CompatSeedImpl
+  new Random(0)                   Net5CompatSeedImpl
+  new Random(int.MaxValue)        Net5CompatSeedImpl
+  Random.Shared                   реализация не задана
+
+Без начального значения работает современный алгоритм.
+С начальным значением — оставленный ради совместимости,
+тот самый, в котором живёт опечатка.
+
+Random.Shared реализацию не показывает: у него другое
+устройство, по экземпляру на поток.

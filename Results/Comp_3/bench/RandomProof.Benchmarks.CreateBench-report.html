@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>RandomProof.Benchmarks.CreateBench-20260914-233719</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.15.8, Windows 10 (10.0.20348.5386)
+Intel Xeon Silver 4314 CPU 2.40GHz, 2 CPU, 64 logical and 32 physical cores
+.NET SDK 11.0.100-preview.5.26302.115
+  [Host] : .NET 10.0.1 (10.0.1, 10.0.125.57005), X64 RyuJIT x86-64-v4
+  net10  : .NET 10.0.1 (10.0.1, 10.0.125.57005), X64 RyuJIT x86-64-v4
+  net8   : .NET 8.0.16 (8.0.16, 8.0.1625.21506), X64 RyuJIT x86-64-v4
+  net9   : .NET 9.0.5 (9.0.5, 9.0.525.21509), X64 RyuJIT x86-64-v4
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>Job</th><th>Toolchain</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th><th>RatioSD</th><th>Code Size</th><th>Gen0</th><th>Allocated</th><th>Alloc Ratio</th>
+</tr>
+</thead><tbody><tr><td>WithoutSeed</td><td>net10</td><td>net10</td><td>126.8 ns</td><td>0.91 ns</td><td>0.76 ns</td><td>1.00</td><td>0.01</td><td>555 B</td><td>0.0057</td><td>72 B</td><td>1.00</td>
+</tr><tr><td>WithSeed</td><td>net10</td><td>net10</td><td>438.3 ns</td><td>7.43 ns</td><td>5.80 ns</td><td>3.46</td><td>0.05</td><td>332 B</td><td>0.0238</td><td>304 B</td><td>4.22</td>
+</tr><tr><td>WithoutSeed</td><td>net8</td><td>net8</td><td>130.4 ns</td><td>1.28 ns</td><td>1.07 ns</td><td>1.03</td><td>0.01</td><td>155 B</td><td>0.0057</td><td>72 B</td><td>1.00</td>
+</tr><tr><td>WithSeed</td><td>net8</td><td>net8</td><td>484.4 ns</td><td>3.59 ns</td><td>3.36 ns</td><td>3.82</td><td>0.03</td><td>382 B</td><td>0.0238</td><td>304 B</td><td>4.22</td>
+</tr><tr><td>WithoutSeed</td><td>net9</td><td>net9</td><td>133.1 ns</td><td>2.48 ns</td><td>2.20 ns</td><td>1.05</td><td>0.02</td><td>150 B</td><td>0.0057</td><td>72 B</td><td>1.00</td>
+</tr><tr><td>WithSeed</td><td>net9</td><td>net9</td><td>477.8 ns</td><td>5.41 ns</td><td>5.06 ns</td><td>3.77</td><td>0.04</td><td>392 B</td><td>0.0238</td><td>304 B</td><td>4.22</td>
+</tr></tbody></table>
+</body>
+</html>

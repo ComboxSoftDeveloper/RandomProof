@@ -21,10 +21,14 @@ if not exist "%OUT%" (
     goto fail
 )
 
-if exist "Bdn\*.log" del /Q "Bdn\*.log"
+if exist "Bdn\*.log" del /Q "Bdn\*.log" 2>nul
 
 echo Всё ляжет в %OUT%
 echo.
+
+rem Папку с отчётами BenchmarkDotNet чистим заранее: если предыдущий прогон
+rem оборвали, его процесс мог остаться и держать файл журнала открытым.
+if exist "Bdn" rmdir /S /Q "Bdn" 2>nul
 
 echo === Сборка ===
 dotnet build -c Release -warnaserror
@@ -66,7 +70,8 @@ echo === Проба: один класс без дизассемблера ===
 dotnet run -c Release -f net10.0 --no-build -- --filter *NextBench* noasm > "%OUT%\probe_noasm.txt" 2>&1
 set PROBE1=%ERRORLEVEL%
 if exist "Bdn\RandomProof.log" copy /Y "Bdn\RandomProof.log" "%OUT%\probe_noasm.log" >nul
-if exist "Bdn\*.log" del /Q "Bdn\*.log"
+ping -n 3 127.0.0.1 >nul
+if exist "Bdn\*.log" del /Q "Bdn\*.log" 2>nul
 if not "%PROBE1%"=="0" echo   завершилось с ошибкой, смотри "%OUT%\probe_noasm.txt"
 
 echo.
@@ -74,12 +79,23 @@ echo === Проба: один класс с дизассемблером ===
 dotnet run -c Release -f net10.0 --no-build -- --filter *NextBench* > "%OUT%\probe_asm.txt" 2>&1
 set PROBE2=%ERRORLEVEL%
 if exist "Bdn\RandomProof.log" copy /Y "Bdn\RandomProof.log" "%OUT%\probe_asm.log" >nul
-if exist "Bdn\*.log" del /Q "Bdn\*.log"
+ping -n 3 127.0.0.1 >nul
+if exist "Bdn\*.log" del /Q "Bdn\*.log" 2>nul
 if not "%PROBE2%"=="0" echo   завершилось с ошибкой, смотри "%OUT%\probe_asm.txt"
 
 echo.
-echo === Замеры на трёх рантаймах одним запуском ===
-dotnet run -c Release -f net10.0 --no-build -- --filter *
+echo === Замеры: каждый класс отдельным запуском ===
+echo.
+echo   NextBench
+dotnet run -c Release -f net10.0 --no-build -- --filter *NextBench*
+if errorlevel 1 goto bench_failed
+
+echo   MethodsBench
+dotnet run -c Release -f net10.0 --no-build -- --filter *MethodsBench*
+if errorlevel 1 goto bench_failed
+
+echo   CreateBench
+dotnet run -c Release -f net10.0 --no-build -- --filter *CreateBench*
 set MAIN=%ERRORLEVEL%
 
 if exist "Bdn\RandomProof.log" copy /Y "Bdn\RandomProof.log" "%OUT%\bench.log" >nul
@@ -91,7 +107,8 @@ if exist "Bdn\results" (
 
 echo.
 if not "%MAIN%"=="0" (
-    echo Замеры завершились с ошибкой. Причина в "%OUT%\bench.log".
+    :bench_failed
+echo Замеры завершились с ошибкой. Причина в "%OUT%\bench.log".
     goto fail
 )
 
